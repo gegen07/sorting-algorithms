@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../../benchmark-library/C/benchmark.h"
+#include <time.h>
 
 void bubbleSort(int **arr, int length) {
   int change;
@@ -34,7 +34,12 @@ int main() {
     scanf("%d", &arr[i]);
   }
 
+  clock_t t;
+  t = clock();
   bubbleSort(&arr, length);
+  t = clock() - t; 
+
+  double time_taken = ((double)t) / CLOCKS_PER_SEC;
 
   for (i = 0; i < length; i++) {
     printf("%d ", arr[i]);
@@ -42,7 +47,6 @@ int main() {
 
   printf("\n");
 
-  double time_taken = benchmark(bubbleSort, &arr, length);
   printf("bubble_sort() took %.7lf seconds to execute \n", time_taken);
 
   free(arr);
